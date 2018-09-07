@@ -11,6 +11,10 @@ spark = SparkSession\
         .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 #textfile = spark.sparkContext.textFile("../logs/api_traffic.log")
-textfile = spark.read.json("../logs/api_traffic.log")
-df=textfile.toDF()
-df.show()
+traffic = spark.read.json("../logs/api_traffic.log")
+colldrr=spark.sparkContext.parallelize(traffic.collect())
+def func(x):
+    return x.split("<")
+    
+traffic.collect().map(func)
+filterw=colldrr.filter(lambda x:'GET https://gds1.livngds.com/' in x)
