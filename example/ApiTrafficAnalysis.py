@@ -10,7 +10,7 @@ spark = SparkSession\
         .config("spark.master","local[*]")\
         .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
-textfile = spark.sparkContext.textFile("../logs/api_traffic.log")
-
+#textfile = spark.sparkContext.textFile("../logs/api_traffic.log")
+textfile = spark.read.json("../logs/api_traffic.log")
 df=textfile.toDF()
 df.show()
