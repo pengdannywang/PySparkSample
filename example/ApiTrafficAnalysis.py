@@ -11,7 +11,7 @@ spark = SparkSession\
         .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
 #textfile = spark.sparkContext.textFile("../logs/api_traffic.log")
-traffic = spark.read.json("../logs/api_traffic.log")
+traffic = spark.read.json("U:/python/PySparkSample/logs/api_traffic.log")
 colldrr=spark.sparkContext.parallelize(traffic.collect())
 def func(x):
     return x.split("<")

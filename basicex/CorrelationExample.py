@@ -10,10 +10,10 @@ data = [(Vectors.sparse(4, [(0, 1.0), (3, -2.0)]),),
 df = spark.createDataFrame(data, ["features"])
 
 r1 = Correlation.corr(df, "features").head()
-print("Pearson correlation matrix:\n" + str(r1[0]))
+print("Pearson correlation matrix:\n" + rawText(r1[0]))
 
 r2 = Correlation.corr(df, "features", "spearman").head()
-print("Spearman correlation matrix:\n" + str(r2[0]))
+print("Spearman correlation matrix:\n" + rawText(r2[0]))
 
 
 
@@ -23,7 +23,7 @@ seriesY = spark.sparkContext.parallelize([11.0, 22.0, 33.0, 33.0, 555.0])
 
 # Compute the correlation using Pearson's method. Enter "spearman" for Spearman's method.
 # If a method is not specified, Pearson's method will be used by default.
-print("Correlation is: " + str(Statistics.corr(seriesX, seriesY, method="pearson")))
+print("Correlation is: " + rawText(Statistics.corr(seriesX, seriesY, method="pearson")))
 
 data = spark.sparkContext.parallelize(
     [np.array([1.0, 10.0, 100.0]), np.array([2.0, 20.0, 200.0]), np.array([5.0, 33.0, 366.0])]
