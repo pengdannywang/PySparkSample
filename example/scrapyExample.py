@@ -87,7 +87,7 @@ page = 'http://www.betexplorer.com/hockey/asia/asia-league-2017-2018/nikko-ice-b
 parser=PageParser()
 row=parser.getRow(page)
 
-with open('persons.csv','w', newline='') as csvfile:
+with open('persons.csv','a', newline='') as csvfile:
     filewriter = csv.writer(csvfile, delimiter=',',
                             quotechar="'", quoting=csv.QUOTE_MINIMAL)
     print(row)
