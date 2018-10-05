@@ -1,18 +1,14 @@
 from pyspark.ml.linalg import Vectors
 from pyspark.ml.stat import Correlation
 from pyspark.sql import Row
-from basicex import *
 import numpy as np
 import re
 from pyspark.sql import SparkSession
-spark = SparkSession\
-        .builder\
-        .appName("Exampe")\
-        .config("spark.master","local[*]")\
-        .getOrCreate()
-spark.sparkContext.setLogLevel("ERROR")
+
+spark = SparkSession.builder.appName("Exampe").config("spark.master","local[*]").getOrCreate()
+
 #textfile = spark.sparkContext.textFile("../logs/api_traffic.log")
-traffic = spark.read.json("W:/pwang/gds1_logs/dev.log")
+traffic = spark.read.json("W:/pwang/central_logs/*.txt")
 #colldrr=spark.sparkContext.parallelize(traffic.collect())
 
 def parser(line):
@@ -24,12 +20,10 @@ def parser(line):
         if "Internal API User IP address registry:" not in r:
             arr.append(r)
     return arr
-
-def mymap(list):
-    for line in list:
-        split=line.split(":",1)
-        
-
+aa=traffic.rdd.flatMap(lambda x:parser(x[7]))
 #traffic = spark.read.json("W:/pwang/central_logs/dev.log")
-colldrr=spark.sparkContext.parallelize(traffic.collect())
+colldrr=spark.sparkContext.parallelize(aa.collect())
+print(colldrr.collect())
+
+
 
